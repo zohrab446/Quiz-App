@@ -1,81 +1,90 @@
-.btn-start,
-.quiz-box{
+.btn_start,
+.quiz_box {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
 }
 
-
-.quiz-box.active{
+.quiz_box.active {
     opacity: 1;
     pointer-events: auto;
-    transform: translate(-50%,-50%) scale(0.7);
 
+    transform: translate(-50%, -50%) scale(1);
 }
-.quiz-box{
+
+.quiz_box {
     width: 550px;
-    transform: translate(-50%,-50%) scale(0.7);
-    transition: all 0.s ease;
+
+    transform: translate(-50%, -50%) scale(0.7);
+    transition: all 0.3s ease;
+
     opacity: 0;
     pointer-events: none;
 }
 
-.quiz-box header.title{
+.quiz_box header .title {
     font-size: 20px;
     font-weight: 600;
 }
 
-.quiz-box .question-text{
-    font-size: 25px;
+.quiz_box .question_text {
+    font-size: 20px;
     font-weight: 600;
 }
 
-.quiz-box .option-list{
+.quiz_box .option_list {
     padding: 18px 0;
 }
 
-.quiz-box .option-list .option{
+.quiz_box .option_list .option {
     border: 1px solid #151D3B;
     border-radius: 5px;
     padding: 8px 15px;
     font-size: 16px;
     margin-bottom: 10px;
     cursor: pointer;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-
 }
 
-.quiz-box .option-list .option:hover{
+.quiz_box .option_list .option:hover {
     color: #112B2C;
-    background: #ffd33d;
+    background: #FFD33D;
 }
 
-.quiz-box .option-list .option.correct{
+.quiz_box .option_list .option.correct {
     color: #155724;
     background: #d4edda;
 }
 
-.quiz-box .option-list .option.incorrect{
+.quiz_box .option_list .option.incorrect {
     color: #721c24;
     background: #f8d7da;
 }
 
-.quiz-box .option-list .option.disabled{
-  pointer-events: none;
+.quiz_box .option_list .option.disabled {
+    pointer-events: none;
 }
 
-.quiz-box .next-btn{
+.quiz_box .next_btn {
     opacity: 0;
     pointer-events: none;
+
     transform: scale(0.9);
-    transition: all 0.5 ease;
+    transition: all 0.3s ease;
 }
 
-.quiz-box .next-btn.show{
+.quiz_box .next_btn.show {
     opacity: 1;
     pointer-events: auto;
     transform: scale(1);
+}
+
+.quiz_box footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

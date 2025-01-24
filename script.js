@@ -1,95 +1,42 @@
-// OOP: Nesne Tabanlı Programlama
-
-function Soru(soruMetni, cevapSecenekleri, dogruCevap) {
-    this.soruMetni = soruMetni;
-    this.cevapSecenekleri = cevapSecenekleri;
-    this.dogruCevap = dogruCevap;
-}
-
-Soru.prototype.cevabiKontrolEt = function(cevap) {
-    return cevap === this.dogruCevap
-}
-
-
-let sorular = [
-    new Soru("1-Hangisi javascript paket yönetim uygulasıdır?", { a: "Node.js", b: "Typescript", c: "Npm" }, "c"),
-    new Soru("2-Hangisi javascript paket yönetim uygulasıdır?", { a: "Node.js", b: "Typescript", c: "Npm" }, "c"),
-    new Soru("3-Hangisi javascript paket yönetim uygulasıdır?", { a: "Node.js", b: "Typescript", c: "Npm" }, "c"),
-    new Soru("4-Hangisi javascript paket yönetim uygulasıdır?", { a: "Node.js", b: "Typescript", c: "Npm" }, "c")
-];
-
-function Quiz(sorular) {
-    this.sorular = sorular;
-    this.soruIndex = 0;
-}
-
-Quiz.prototype.soruGetir = function() {
-    return this.sorular[this.soruIndex];
-}
-
 const quiz = new Quiz(sorular);
-const correctIcon =' <div class="icon"><i class="fas fa-check"></i></div>';
-const incorrectIcon =' <div class="icon"><i class="fas fa-times"></i></div>';
+const ui = new UI();
 
-document.querySelector(".btn-start").addEventListener("click", function() {
-    document.querySelector(".quiz-box").classList.add("active");
-    soruGoster(quiz.soruGetir());
-    document.querySelector(".next-btn").classList.remove("show");
+ui.btn_start.addEventListener("click", function() {
+    ui.quiz_box.classList.add("active");
+    ui.soruGoster(quiz.soruGetir());
+    ui.soruSayisiniGoster(quiz.soruIndex + 1, quiz.sorular.length);
+    ui.btn_next.classList.remove("show");
 })
 
-document.querySelector(".next-btn").addEventListener("click",function(){
-    if (quiz.sorular.length != quiz.soruIndex +1) {
-        document.querySelector(".quiz-box").classList.add("active");
+ui.btn_next.addEventListener("click", function() {
+    if (quiz.sorular.length != quiz.soruIndex + 1) {
         quiz.soruIndex += 1;
-        soruGoster(quiz.soruGetir());
-        document.querySelector(".next-btn").classList.remove("show");
+        ui.soruGoster(quiz.soruGetir());
+        ui.soruSayisiniGoster(quiz.soruIndex + 1, quiz.sorular.length);
+        ui.btn_next.classList.remove("show");
     } else {
         console.log("quiz bitti");
     }
 });
 
-const option_list = document.querySelector(".option-list");
 
-function soruGoster(soru){
-    let question = `<span>${soru.soruMetni} </span>`;
-    let options = '';
-
-    for(let cevap in soru.cevapSecenekleri){
-        options +=
-        `
-        <div class="option">
-        <span><b>${cevap}</b>: ${soru.cevapSecenekleri[cevap]}</span>
-        </div>
-        `;
-    }
-
-   
-
-
-    document.querySelector(".question-text").innerHTML = question;
-    document.querySelector(".option-list").innerHTML = options;
-
-    const option = option_list.querySelectorAll(".option");
-    for(let opt of option){
-        opt.setAttribute("onclick","optionSelected(this)")
-    }
-}
-
-function optionSelected(option){
+function optionSelected(option) {
     let cevap = option.querySelector("span b").textContent;
     let soru = quiz.soruGetir();
 
-    if(soru.cevabiKontrolEt(cevap)){
+    if(soru.cevabiKontrolEt(cevap)) {
         option.classList.add("correct");
-        option.insertAdjacentHTML("beforeend",correctIcon);
-    }else{
+        option.insertAdjacentHTML("beforeend", ui.correctIcon);
+    } else {
         option.classList.add("incorrect");
-        option.insertAdjacentHTML("beforeend",incorrectIcon);
+        option.insertAdjacentHTML("beforeend", ui.incorrectIcon);
     }
 
-    for(let i=0; i< option_list.children.length; i++){
-        option_list.children[i].classList.add("disabled");
-    } 
+    for(let i=0; i < ui.option_list.children.length; i++) {
+        ui.option_list.children[i].classList.add("disabled");
+    }
 
-    document.querySelector(".next-btn").classList.add("show");
+    ui.btn_next.classList.add("show");
 }
+
+
